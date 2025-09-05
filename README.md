@@ -28,4 +28,12 @@ Aktuell enthält das Repo einen **Relay-Server (Rust/Axum)** und einen **Mini-Cl
 ---
 
 ## 📂 Projektstruktur
+aegis/
+├─ Server/ # Rust-Relay (Axum)
+│ ├─ src/main.rs
+│ ├─ Cargo.toml
+│ └─ data/ # Event-Log (mailbox.log) – per DATA_DIR konfigurierbar
+└─ app/
+└─ aegis_app/ # Flutter Mini-Client
+└─ lib/main.dart
 
