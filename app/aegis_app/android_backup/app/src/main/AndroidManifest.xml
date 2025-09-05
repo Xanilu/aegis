@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aegis_app">
 
-	<!-- QR-Scanner Kamera -->
+	<!-- Kamera-Permission für QR-Scanner -->
 	<uses-permission android:name="android.permission.CAMERA" />
+
+	<!-- (Optional, aber sinnvoll) Wir sagen, dass eine Kamera vorhanden sein kann -->
 	<uses-feature android:name="android.hardware.camera.any" android:required="false" />
 
 	<application
@@ -11,7 +13,8 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
-		<!-- Cleartext nur für DEV; in Produktion über HTTPS und diesen Flag entfernen -->
+		<!-- usesCleartextTraffic=true erlaubt http://… im LAN für DEV.
+             Für Produktion später auf HTTPS umstellen und diesen Flag entfernen. -->
 
 		<activity
             android:name=".MainActivity"
@@ -22,6 +25,7 @@
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
 
+			<!-- Normaler App-Launch -->
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -29,6 +33,7 @@
 
 		</activity>
 
+		<!-- Flutter V2 Embedding -->
 		<meta-data
             android:name="flutterEmbedding"
             android:value="2" />

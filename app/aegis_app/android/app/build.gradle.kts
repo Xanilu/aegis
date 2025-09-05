@@ -1,30 +1,34 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    // Muss nach Android/Kotlin kommen:
     id("dev.flutter.flutter-gradle-plugin")
 }
 
 android {
     namespace = "com.example.aegis_app"
+
+    // Von Flutter vorgegeben (passt):
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
+    // >>> Wichtig: JDK 17 für AGP 8.x
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = "17"
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.aegis_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+
+        // >>> Wichtig: minSdk 21 (mobile_scanner braucht >=21)
+        // Wenn dein flutter.minSdkVersion schon 21 ist, kannst du ihn auch nehmen.
+        minSdk = 21
+
+        // Lass target/versions von Flutter setzen:
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -32,9 +36,13 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            // Für Tests: Debug-Signing (später eigenes Keystore)
             signingConfig = signingConfigs.getByName("debug")
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+        debug {
+            // Defaults ok
         }
     }
 }
